@@ -12,7 +12,7 @@ class TensorBoardVisualizer():
     def __init__(self):
         current_time = datetime.now().strftime("%B_%d_%Y_%I:%M%p")
         log_dir = f"runs/{current_time}"
-        self._writer = SummaryWriter(log_dir='HandRemote/TrainModel/runs')
+        self._writer = SummaryWriter(log_dir='Project/TrainingModel/runs')
 
 
     def create_confusion_matrix(self, net, loader):

@@ -12,12 +12,12 @@ class SystemConfig:
 @dataclass
 class DatasetConfig:
 
-    command_pose_path: str = "HandRemote/TrainModel/data/command_pose.npy"
-    volume_up_path: str = "HandRemote/TrainModel/data/volume_up.npy"
-    volume_down_path: str = "HandRemote/TrainModel/data/volume_down.npy"
-    next_path: str = "HandRemote/TrainModel/data/next.npy"
-    previous_path: str = "HandRemote/TrainModel/data/previous.npy"
-    play_pause_path: str = "HandRemote/TrainModel/data/play_pause.npy"
+    command_pose_path: str = "Project/TrainingModel/data/command_pose.npy"
+    volume_up_path: str = "Project/TrainingModel/data/volume_up.npy"
+    volume_down_path: str = "Project/TrainingModel/data/volume_down.npy"
+    next_path: str = "Project/TrainingModel/data/next.npy"
+    previous_path: str = "Project/TrainingModel/data/previous.npy"
+    play_pause_path: str = "Project/TrainingModel/data/play_pause.npy"
 
     num_classes: int = 2 # number of classes in the dataset
 

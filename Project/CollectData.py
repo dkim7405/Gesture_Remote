@@ -112,7 +112,7 @@ class CollectData:
         np.save(raw_file_path, data)
 
     def make_data_folder(self):
-        self.action_path = f"HandRemote/TrainModel/data"
+        self.action_path = f"Project/TrainingModel/data"
         os.makedirs(self.action_path, exist_ok=True)
 
 
