@@ -10,9 +10,9 @@ from datetime import datetime
 
 class TensorBoardVisualizer():
     def __init__(self):
-        current_time = datetime.now().strftime("%B_%d_%Y_%I:%M%p")
-        log_dir = f"runs/{current_time}"
-        self._writer = SummaryWriter(log_dir='Project/TrainingModel/runs')
+        current_time = datetime.now().strftime("%B_%d_%Y_%I_%M%p")
+        log_dir = f"Project/TrainingModel/runs/{current_time}"
+        self._writer = SummaryWriter(log_dir=log_dir)
 
 
     def create_confusion_matrix(self, net, loader):
@@ -32,8 +32,11 @@ class TensorBoardVisualizer():
 
         # constant for classes
         classes = (
-            0,
-            1
+            "command_pose",
+            "volume_control",
+            "next",
+            "previous",
+            "play_pause"
         )
 
         # Build confusion matrix

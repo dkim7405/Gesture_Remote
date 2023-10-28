@@ -13,22 +13,21 @@ class SystemConfig:
 class DatasetConfig:
 
     command_pose_path: str = "Project/TrainingModel/data/command_pose.npy"
-    volume_up_path: str = "Project/TrainingModel/data/volume_up.npy"
-    volume_down_path: str = "Project/TrainingModel/data/volume_down.npy"
+    volume_control_path: str = "Project/TrainingModel/data/volume_control.npy"
     next_path: str = "Project/TrainingModel/data/next.npy"
     previous_path: str = "Project/TrainingModel/data/previous.npy"
     play_pause_path: str = "Project/TrainingModel/data/play_pause.npy"
 
-    num_classes: int = 2 # number of classes in the dataset
+    num_classes: int = 5 # number of classes in the dataset
 
 @dataclass
 class DataloaderConfig:
-    batch_size: int = 128
-    num_workers: int = 4
+    batch_size: int = 256
+    num_workers: int = 1
 
 @dataclass
 class OptimizerConfig:
-    learning_rate: float = 0.01
+    learning_rate: float = 0.002 # learning rate of SGD
     momentum: float = 0.95 # SGD momentum (How much to reuse the previous update directionm percent) 
     weight_decay: float = 0.0001 # SGD weight decay
     lr_step_milestones: Iterable = (100,200,300,400,500) # epoch to start changing learning rate
@@ -39,5 +38,5 @@ class TrainerConfig:
     model_dir: str = "checkpoints"  # directory to save model states
     model_saving_frequency: int = 50  # frequency of model state savings per epochs
     device: str = "gpu"  # device to use for training.
-    epoch_num: int = 5  # number of times the whole dataset will be passed through the network
+    epoch_num: int = 10  # number of times the whole dataset will be passed through the network
     progress_bar: bool = True  # enable progress bar visualization during train process

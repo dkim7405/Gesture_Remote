@@ -5,7 +5,7 @@ import torch
 from typing import Union, Callable
 from pathlib import Path
 from operator import itemgetter
-from tensorboard_visualizer import TensorBoardVisualizer
+from trainer.tensorboard_visualizer import TensorBoardVisualizer
 from tqdm import tqdm
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from .utils import AverageMeter
@@ -26,7 +26,7 @@ class Trainer:
         lr_scheduler: Callable, # lr_scheduler (torch.optim.LrScheduler): Learning Rate scheduler.
         device: Union[torch.device, str] = "cuda", # device (str): Specifies device at which samples will be uploaded.
         model_saving_frequency: int = 1, # model_saving_frequency (int): frequency of model state savings per epochs.
-        save_dir: Union[str, Path] = "./checkpoints", # save_dir (str): directory to save model states.
+        save_dir: Union[str, Path] = "Project/TrainingModel/checkpoints", # save_dir (str): directory to save model states.
         model_name_prefix: str = "model", # model_name_prefix (str): prefix which will be add to the model name.
         data_getter: Callable = itemgetter(0), # data_getter (Callable): function object to extract input data from the sample prepared by dataloader.
         target_getter: Callable = itemgetter(1), # target_getter (Callable): function object to extract target data from the sample prepared by dataloader.
@@ -60,12 +60,12 @@ class Trainer:
         for epoch in range(1, epochs+1):
 
             output_train = self.train_loop(
-                self.model,
-                self.loader_train,
-                self.loss_fn,
-                self.metric_fn,
-                self.optimizer,
-                self.device,
+                model=self.model,
+                loader=self.loader_train,
+                loss_fn=self.loss_fn,
+                metric_fn=self.metric_fn,
+                optimizer=self.optimizer,
+                device=self.device,
                 prefix="[{}/{}]".format(epoch, epochs),
                 stage_progress=self.stage_progress,
                 data_getter=self.data_getter,
@@ -74,11 +74,11 @@ class Trainer:
             )
 
             output_test = self.test_loop(
-                self.model,
-                self.loader_test,
-                self.loss_fn,
-                self.metric_fn,
-                self.device,
+                model=self.model,
+                loader=self.loader_test,
+                loss_fn=self.loss_fn,
+                metric_fn=self.metric_fn,
+                device=self.device,
                 prefix="[{}/{}]".format(epoch, epochs),
                 stage_progress=self.stage_progress,
                 data_getter=self.data_getter,
@@ -88,7 +88,7 @@ class Trainer:
 
             if self.visualizer:
                 self.visualizer.update_charts(
-                    None, output_train['accuracy'], output_train['loss'], output_test['accuracy'], output_test['loss'],
+                    output_train['accuracy'], output_train['loss'], output_test['accuracy'], output_test['loss'],
                     self.optimizer.param_groups[0]['lr'], epoch,
                     self.model, self.loader_train
                 )
@@ -112,6 +112,7 @@ class Trainer:
                 )
             if output_test['loss'] < best_loss:
                 best_loss = output_test['loss']
+                os.makedirs(self.save_dir, exist_ok=True)
                 torch.save(
                     self.model.state_dict(),
                     os.path.join(self.save_dir, self.model_name_prefix) + '_best'
@@ -123,6 +124,7 @@ class Trainer:
     # Return a dictionary of output metrics with keys:
     #     loss: average loss.
     def train_loop(
+        self,
         model, # model (nn.Module): torch model which will be train.
         loader, # loader (torch.utils.DataLoader): dataset loader.
         loss_fn, # loss_fn (callable): loss function.
@@ -163,6 +165,7 @@ class Trainer:
     #     loss: average loss.
     #     metric: output metric.
     def test_loop(
+        self,
         model, # model (nn.Module): torch model which will be train.
         loader, # loader (torch.utils.DataLoader): dataset loader.
         loss_fn, # loss_fn (callable): loss function.

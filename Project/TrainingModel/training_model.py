@@ -19,15 +19,14 @@ class GestureDataset(Dataset):
 
         self.data_loaded = np.concatenate([
             np.load(configuration.DatasetConfig.command_pose_path),
-            np.load(configuration.DatasetConfig.volume_up_path),
-            # np.load(configuration.DatasetConfig.volume_down_path),
-            # np.load(configuration.DatasetConfig.next_path),
-            # np.load(configuration.DatasetConfig.previous_path),
-            # np.load(configuration.DatasetConfig.play_pause_path)
+            np.load(configuration.DatasetConfig.volume_control_path),
+            np.load(configuration.DatasetConfig.next_path),
+            np.load(configuration.DatasetConfig.previous_path),
+            np.load(configuration.DatasetConfig.play_pause_path)
         ])
 
         self.data_points = self.data_loaded[:, :-1].astype(np.float32)
-        self.data_labels = self.data_loaded[:, -1].astype(np.int64) 
+        self.data_labels = self.data_loaded[:, -1].astype(np.int64)
 
     def __len__(self):
         return len(self.data_loaded)
@@ -40,7 +39,7 @@ def get_data(batch_size, num_workers):
 
     dataset = GestureDataset()
 
-    train_size = int(0.8 * len(dataset))
+    train_size = int(0.7 * len(dataset))
     test_size = len(dataset) - train_size
     train_set, test_set = torch.utils.data.random_split(dataset, [train_size, test_size])
     train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=num_workers)
@@ -55,8 +54,14 @@ class GestureDetector(nn.Module):
         super().__init__()
 
         self.head = nn.Sequential(
-            nn.Linear(in_features=99, out_features=32),
-            nn.Linear(in_features=32, out_features=2)
+            nn.Linear(in_features=99, out_features=64),
+            nn.Linear(in_features=64, out_features=64),
+            nn.Linear(in_features=64, out_features=64),
+            nn.Linear(in_features=64, out_features=64),
+            nn.Linear(in_features=64, out_features=64),
+            nn.Linear(in_features=64, out_features=64),
+            nn.Linear(in_features=64, out_features=32),
+            nn.Linear(in_features=32, out_features=5)
         )
         
     def forward(self, x):
