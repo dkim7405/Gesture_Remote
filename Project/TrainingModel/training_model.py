@@ -22,7 +22,8 @@ class GestureDataset(Dataset):
             np.load(configuration.DatasetConfig.volume_control_path),
             np.load(configuration.DatasetConfig.next_path),
             np.load(configuration.DatasetConfig.previous_path),
-            np.load(configuration.DatasetConfig.play_pause_path)
+            np.load(configuration.DatasetConfig.play_pause_path),
+            np.load(configuration.DatasetConfig.none_path)
         ])
 
         self.data_points = self.data_loaded[:, :-1].astype(np.float32)
@@ -54,6 +55,7 @@ class GestureDetector(nn.Module):
         super().__init__()
 
         self.head = nn.Sequential(
+            nn.Linear(in_features=99, out_features=99),
             nn.Linear(in_features=99, out_features=64),
             nn.Linear(in_features=64, out_features=64),
             nn.Linear(in_features=64, out_features=64),
@@ -61,7 +63,8 @@ class GestureDetector(nn.Module):
             nn.Linear(in_features=64, out_features=64),
             nn.Linear(in_features=64, out_features=64),
             nn.Linear(in_features=64, out_features=32),
-            nn.Linear(in_features=32, out_features=5)
+            nn.Linear(in_features=32, out_features=16),
+            nn.Linear(in_features=16, out_features=6)
         )
         
     def forward(self, x):

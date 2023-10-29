@@ -36,7 +36,8 @@ class TensorBoardVisualizer():
             "volume_control",
             "next",
             "previous",
-            "play_pause"
+            "play_pause",
+            "none"
         )
 
         # Build confusion matrix
@@ -64,7 +65,8 @@ class TensorBoardVisualizer():
 
         self._writer.add_scalar("data/learning_rate", learning_rate, epoch)
 
-        self._writer.add_figure("Test Confusion Matrix", self.create_confusion_matrix(model, loader))
+        current_time = datetime.now().strftime("%B_%d_%Y_%I_%M%p")
+        self._writer.add_figure(f"{current_time}", self.create_confusion_matrix(model, loader))
 
     def close_tensorboard(self):
         self._writer.close()

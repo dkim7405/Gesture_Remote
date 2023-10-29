@@ -107,15 +107,15 @@ class Trainer:
             if (epoch + 1) % self.model_saving_frequency == 0:
                 os.makedirs(self.save_dir, exist_ok=True)
                 torch.save(
-                    self.model.state_dict(),
-                    os.path.join(self.save_dir, self.model_name_prefix) + str(datetime.datetime.now())
+                    self.model,
+                    os.path.join(self.save_dir, self.model_name_prefix) + str(datetime.datetime.now()) + '.pt'
                 )
             if output_test['loss'] < best_loss:
                 best_loss = output_test['loss']
                 os.makedirs(self.save_dir, exist_ok=True)
                 torch.save(
-                    self.model.state_dict(),
-                    os.path.join(self.save_dir, self.model_name_prefix) + '_best'
+                    self.model,
+                    os.path.join(self.save_dir, self.model_name_prefix) + '_best.pt'
                 )
 
         return self.metrics
@@ -157,7 +157,11 @@ class Trainer:
             if get_key_metric is not None:
                 status = status + " Acc: {0:.3f}".format(get_key_metric(metric_fn.get_metric_value()))
             iterator.set_description(status)
-            output = {"accuracy": metric_fn.get_metric_value(), "loss": loss_avg.avg}
+        
+        output = {"accuracy": metric_fn.get_metric_value(), "loss": loss_avg.avg}
+
+        self.model = model
+
         return output
 
 
@@ -196,5 +200,6 @@ class Trainer:
             if get_key_metric is not None:
                 status = status + " Acc: {0:.3f}".format(get_key_metric(metric_fn.get_metric_value()))
             iterator.set_description(status)
+            
         output = {"accuracy": metric_fn.get_metric_value(), "loss": loss_avg.avg}
         return output

@@ -9,7 +9,7 @@ class CollectData:
 
     def __init__(self):
         self.action_path = ""
-        self.data_amount = 1500
+        self.data_amount = 100
 
         self.camera = cv2.VideoCapture(0)
         self.hand_detector = DetectHand.DetectHand()
@@ -118,7 +118,7 @@ class CollectData:
 
 
 if __name__ == "__main__":
-    actions = ['command_pose', 'volume_control', 'next', 'previous', 'play_pause']
+    actions = ['command_pose', 'volume_control', 'next', 'previous', 'play_pause', 'none']
 
     collect_data = CollectData()
-    collect_data.collect_data(actions[4], 4)
+    collect_data.collect_data(actions[1], 1)
