@@ -9,7 +9,7 @@ class CollectData:
 
     def __init__(self):
         self.action_path = ""
-        self.data_amount = 100
+        self.data_amount = 2000
 
         self.camera = cv2.VideoCapture(0)
         self.hand_detector = DetectHand.DetectHand()
@@ -46,13 +46,12 @@ class CollectData:
         return camera_frame
 
     def collecting_action(self, collecting_action, collecting_action_index, data):
-        start_time = time.time()
 
         while len(data) <= self.data_amount:
             return_value, frame = self.camera.read()
 
             if return_value:
-                hands = self.hand_detector.detect_from_frame(frame)
+                hands = self.hand_detector.detect_from_frame_normalized(frame)
 
                 if hands is not None:
                     for hand in hands:
@@ -64,8 +63,6 @@ class CollectData:
                         angle_label = np.append(angle_label, collecting_action_index)
 
                         d = np.concatenate([joint.flatten(), angle_label])
-
-                        print(d[-1])
 
                         data.append(d)
 
@@ -117,8 +114,8 @@ class CollectData:
         os.makedirs(self.action_path, exist_ok=True)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     actions = ['command_pose', 'volume_control', 'next', 'previous', 'play_pause', 'none']
 
     collect_data = CollectData()
-    collect_data.collect_data(actions[1], 1)
+    collect_data.collect_data(actions[5], 5)

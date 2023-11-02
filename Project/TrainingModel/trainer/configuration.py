@@ -24,14 +24,14 @@ class DatasetConfig:
 @dataclass
 class DataloaderConfig:
     batch_size: int = 256
-    num_workers: int = 1
+    num_workers: int = 1 
 
 @dataclass
 class OptimizerConfig:
     learning_rate: float = 0.002 # learning rate of SGD
     momentum: float = 0.95 # SGD momentum (How much to reuse the previous update directionm percent) 
     weight_decay: float = 0.0001 # SGD weight decay
-    lr_step_milestones: Iterable = (10, 15) # epoch to start changing learning rate
+    lr_step_milestones: Iterable = (20, 25, 30, 35, 40, 45) # epoch to start changing learning rate
     lr_gamma: float = 0.7 # learning rate multiplier when reaching milestone
 
 @dataclass
@@ -39,5 +39,5 @@ class TrainerConfig:
     model_dir: str = "checkpoints"  # directory to save model states
     model_saving_frequency: int = 50  # frequency of model state savings per epochs
     device: str = "gpu"  # device to use for training.
-    epoch_num: int = 20  # number of times the whole dataset will be passed through the network
+    epoch_num: int = 50  # number of times the whole dataset will be passed through the network
     progress_bar: bool = True  # enable progress bar visualization during train process

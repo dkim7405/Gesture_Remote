@@ -1,7 +1,7 @@
 import os
-import datetime
 import torch
 
+from datetime import datetime
 from typing import Union, Callable
 from pathlib import Path
 from operator import itemgetter
@@ -98,6 +98,8 @@ class Trainer:
             self.metrics['test_loss'].append(output_test['loss'])
             self.metrics['test_accuracy'].append(output_test['accuracy'])
 
+            current_time = datetime.now().strftime("%B_%d_%Y_%I_%M%p")
+
             if self.lr_scheduler is not None:
                 if isinstance(self.lr_scheduler, ReduceLROnPlateau):
                     self.lr_scheduler.step(output_train['loss'])
@@ -108,7 +110,7 @@ class Trainer:
                 os.makedirs(self.save_dir, exist_ok=True)
                 torch.save(
                     self.model,
-                    os.path.join(self.save_dir, self.model_name_prefix) + str(datetime.datetime.now()) + '.pt'
+                    os.path.join(self.save_dir, self.model_name_prefix) + str(current_time) + '.pt'
                 )
             if output_test['loss'] < best_loss:
                 best_loss = output_test['loss']

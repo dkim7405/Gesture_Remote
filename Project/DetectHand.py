@@ -21,6 +21,17 @@ class DetectHand:
 
         return processed.multi_hand_landmarks
     
+    def detect_from_frame_normalized(self, img):
+        detect_img = img.copy()
+        detect_img = cv2.flip(img, 1)
+        detect_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        detect_img.flags.writeable = False
+        processed = self.hand_detector_model.process(detect_img)
+        detect_img.flags.writeable = True
+
+        return processed.multi_hand_world_landmarks
+    
     def processed_from_frame(self, img):
         result_img = img.copy()
         hand_landmarks = self.detect_from_frame(result_img)

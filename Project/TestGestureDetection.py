@@ -4,21 +4,20 @@ import DetectHand
 import torch
 import torch.nn as nn
 
-
 class GestureDetector(nn.Module):
     def __init__(self):
         
         super().__init__()
 
         self.head = nn.Sequential(
+            nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=99),
             nn.Linear(in_features=99, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
             nn.Linear(in_features=64, out_features=32),
-            nn.Linear(in_features=32, out_features=5)
+            nn.Linear(in_features=32, out_features=16),
+            nn.Linear(in_features=16, out_features=6)
         )
         
     def forward(self, x):
@@ -28,7 +27,7 @@ class GestureDetector(nn.Module):
 class TestGestureDetection:
 
     def __init__(self):
-        self.action =  ['command_pose', 'volume_control', 'next', 'previous', 'play_pause', 'none']
+        self.actions = ['command_pose', 'volume_control', 'next', 'previous', 'play_pause', 'none']
 
         self.camera = cv2.VideoCapture(0)
         self.hand_detector = DetectHand.DetectHand()
@@ -53,7 +52,7 @@ class TestGestureDetection:
             
             if return_value:
 
-                hands = self.hand_detector.detect_from_frame(frame)
+                hands = self.hand_detector.detect_from_frame_normalized(frame)
                 
                 if hands is not None:
                     for hand in hands:
@@ -69,7 +68,7 @@ class TestGestureDetection:
                         prediction = self.model(feed)
                         prediction = torch.argmax(prediction).item()
                         # prediction = torch.softmax(prediction, dim=1)
-                        print(self.action[prediction])
+                        print(self.actions[prediction])
                         # print(prediction)
                         
                 frame = self.hand_detector.processed_from_frame(frame)

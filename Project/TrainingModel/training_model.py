@@ -56,12 +56,10 @@ class GestureDetector(nn.Module):
 
         self.head = nn.Sequential(
             nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=99),
             nn.Linear(in_features=99, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
-            nn.Linear(in_features=64, out_features=64),
             nn.Linear(in_features=64, out_features=32),
             nn.Linear(in_features=32, out_features=16),
             nn.Linear(in_features=16, out_features=6)
