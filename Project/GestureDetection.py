@@ -33,7 +33,7 @@ class GestureDetection:
         self.action = 'none'
         self.command = 'none'
         self.command_on = False
-        self.volume_down_on = False
+        self.volume_cmd_on = False
 
         self.camera = cv2.VideoCapture(0)
         self.hand_detector = DetectHand.DetectHand()
@@ -150,9 +150,18 @@ class GestureDetection:
                 or (self.user_seq[0] == 'command_pose' and self.user_seq[1] == 'play_pause' and self.command == 'volume_down'):                 
                 self.command = 'volume_stop'
         
+            elif self.user_seq[0] == 'volume_control':
+                if self.user_seq[1] == 'command_pose' and self.command != 'volume_up':
+                    self.command = 'volume_down'
+                    self.volume_cmd_on = True
+
             elif self.user_seq[0] == 'command_pose':
+                self.command = 'command'
+                self.command_on = True
+                self.volume_cmd_on = False
                 if self.user_seq[1] == 'volume_control':
                     self.command = 'volume_up'
+                    self.volume_cmd_on = True
                 elif self.user_seq[1] == 'play_pause':
                     self.command = 'play_pause'
                 elif self.user_seq[1] == 'next':
@@ -160,14 +169,15 @@ class GestureDetection:
                 elif self.user_seq[1] == 'previous':
                     self.command = 'previous'
             
-            elif self.user_seq[0] == 'volume_control':
-                if self.user_seq[1] == 'command_pose' and self.command != 'volume_up':
-                    self.command = 'volume_down'
-    
+            elif self.command_on and not self.volume_cmd_on and self.user_seq[0] == self.user_seq[1]:
+                self.command = self.user_seq[1]
+                self.command_on = False
+                self.volume_cmd_on = False
+
+            print(self.command)
             self.user_seq = self.user_seq[1:]
             
  
-
 if __name__ == "__main__":
     gesture_detection = GestureDetection()
     gesture_detection.detect_from_cam()
