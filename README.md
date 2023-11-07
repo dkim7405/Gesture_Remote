@@ -97,3 +97,13 @@ Final Model:<br />
 **Test Accuracy:**<br />
 <br />
 ![image](https://github.com/dkim7405/Gesture_Remote/assets/122648295/cb5ceb37-5def-4c0e-9d7e-e81a2772a555)
+
+## Demo Pictures
+These are demonstration of pictures for the program
+
+### Hand Recognition
+![Hand_Detection](https://github.com/dkim7405/Gesture_Remote/assets/122648295/3d96020c-5efc-4cab-af23-7b0076e15dda)
+
+### Gesture Recognition
+![Detection_Test](https://github.com/dkim7405/Gesture_Remote/assets/122648295/7f921a05-636b-4aff-822c-8c316563f100)
+
