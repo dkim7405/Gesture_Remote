@@ -117,4 +117,9 @@ These are demonstration of pictures for the program
 <br />
 ![play_pause](https://github.com/dkim7405/Gesture_Remote/assets/122648295/67d5617f-e313-4506-a34c-8506f3139c9a)
 
-
+## Future Improvements
+- **Media Controls:** Bind media control to commands.
+- **Gesture Segmentation:** Enhance the system to recognize and interpret continuous gesture sequences, allowing for more complex interactions.
+- **Data Augmentation:** Increase the diversity of your training data, making the model accurate for different lighting conditions and hand orientations.
+- **Creating Product:** Create camera that has the recognition ability and can change views accordingly.
+- **User Feedback:** See what more improvements can be made.
