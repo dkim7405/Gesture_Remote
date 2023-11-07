@@ -31,3 +31,37 @@ Remote control device will allow the users to interact with and control their me
 - Epoch number = 100
 - 70% Training Dataset
 - 30% Testing Dataset
+
+## Training Results
+Currently best model found:
+- Epoch number: 100
+- Weight Decay: 0.0001
+- Momentum: 0.95
+- Learning Rate 0.002
+- Learning Rate Gamma: 0.25
+- Learning Rate Step Milestones: 25, 50, 75, 90
+- Batch Size: 256
+- Number of Workers: 1
+- Seed: 42
+- Model
+```
+class GestureDetector(nn.Module):
+    def __init__(self):
+        
+        super().__init__()
+
+        self.head = nn.Sequential(
+            nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=99),
+            nn.Linear(in_features=99, out_features=64),
+            nn.Linear(in_features=64, out_features=32),
+            nn.Linear(in_features=32, out_features=16),
+            nn.Linear(in_features=16, out_features=6)
+        )
+        
+    def forward(self, x):
+        x = self.head(x)
+        return x
+```
