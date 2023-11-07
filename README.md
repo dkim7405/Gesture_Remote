@@ -106,4 +106,15 @@ These are demonstration of pictures for the program
 
 ### Gesture Recognition
 ![Detection_Test](https://github.com/dkim7405/Gesture_Remote/assets/122648295/7f921a05-636b-4aff-822c-8c316563f100)
+<br />
+![volume_up](https://github.com/dkim7405/Gesture_Remote/assets/122648295/50a82759-6f83-4fc1-9fcf-7aca7d48c3a5)
+<br />
+![volume_down](https://github.com/dkim7405/Gesture_Remote/assets/122648295/40e6b91e-b6e0-4c49-b000-367ead21ee7c)
+<br />
+![next](https://github.com/dkim7405/Gesture_Remote/assets/122648295/7ab451fa-21be-497c-8d80-d424d34f7b2c)
+<br />
+![previous](https://github.com/dkim7405/Gesture_Remote/assets/122648295/27d57436-a7d0-4d40-9ab5-fa72715d144c)
+<br />
+![play_pause](https://github.com/dkim7405/Gesture_Remote/assets/122648295/67d5617f-e313-4506-a34c-8506f3139c9a)
+
 
