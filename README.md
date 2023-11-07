@@ -65,3 +65,29 @@ class GestureDetector(nn.Module):
         x = self.head(x)
         return x
 ```
+
+### Confusion Matrix
+Beginning Model:
+![image](https://github.com/dkim7405/Gesture_Remote/assets/122648295/e6755489-0e86-4157-b22c-2b6d47d9ac46)
+
+Final Model:
+![image](https://github.com/dkim7405/Gesture_Remote/assets/122648295/7e5b9d31-af94-4299-8a15-4edcde6ce0d9)
+
+### Graphs
+Runs:
+![image](https://github.com/dkim7405/Gesture_Remote/assets/122648295/6e97f98c-057c-4490-b4bd-cefd6b45d98d)
+
+Learning Rate:
+![image](https://github.com/dkim7405/Gesture_Remote/assets/122648295/c7d81ca4-8d14-4206-848c-fca469af3307)
+
+Training Loss:
+![image](https://github.com/dkim7405/Gesture_Remote/assets/122648295/afbc0f8d-ee8b-4030-9a99-9e9a54b1ee7e)
+
+Training Accuracy:
+![image](https://github.com/dkim7405/Gesture_Remote/assets/122648295/5ee5c187-dd8d-44a0-87f0-727808fc1d22)
+
+Test Loss:
+![image](https://github.com/dkim7405/Gesture_Remote/assets/122648295/f3f3036f-e2fd-4591-aa35-91778c1f9484)
+
+Test Accuracy:
+![image](https://github.com/dkim7405/Gesture_Remote/assets/122648295/cb5ceb37-5def-4c0e-9d7e-e81a2772a555)
