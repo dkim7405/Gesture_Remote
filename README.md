@@ -44,7 +44,7 @@ Currently best model found:
 - Number of Workers: 1
 - Seed: 42
 - Model
-```
+```python
 class GestureDetector(nn.Module):
     def __init__(self):
         
