@@ -118,4 +118,4 @@ if __name__ == "__main__":
     actions = ['command_pose', 'volume_control', 'next', 'previous', 'play_pause', 'none']
 
     collect_data = CollectData()
-    collect_data.collect_data(actions[5], 5)
+    collect_data.collect_data(actions[1], 1)
